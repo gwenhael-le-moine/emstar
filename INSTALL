@@ -1,0 +1,54 @@
+======================================================================
+         INSTALLATION NOTES FOR EMACS EMSTAR
+        2008, Gwenhael Le Moine <gwenhael.le.moine!gmail.com>
+======================================================================
+
+Copy `emstar.el' anywhere you like, best in a directory, which is in
+the default load-path of your emacs.
+
+Copy the directory `emstar-levels' and it's content anywhere you
+like, the default configuration of Emacs Emstar expects it in
+/usr/local/share/
+
+Add the following lines to your .emacs file:
+
+(autoload 'emstar "emstar.el"
+  "Start a new game of Emstar." t)
+(autoload 'emstar-mode "emstar.el"
+  "Play Emstar in current buffer." t)
+
+If you put `emstar.el' in a place which is not in your load-path you
+have to write the full path like "/path/to/emstar.el" instead of
+"emstar.el".
+
+If you put the emstar-levels in a other directory than
+/usr/local/share you must configure `emstar-levels-dir' in your
+.emacs to point to the proper place:
+
+(setq emstar-levels-dir "/path/to/emstar-levels")
+
+This can also be set using emacs customize feature.
+
+
+Player files
+============
+
+By default Emacs Emstar saves player-files to /tmp.  These files hold
+the best results for each player and the last level each player finished.
+
+If you want your player files to be put in another place set the value
+of `emstar-playerfiles-dir' appropriate, either in your .emacs file
+with:
+
+(setq emstar-playerfiles-dir "/path/to/emstar-playerfiles")
+
+or using the emacs customize feature.
+
+IMPORTANT NOTE: The directory holding the playerfiles must be
+writeable for all players of Emacs Emstar.  So it should be a
+dedicated directory with access permissions set to 1777 on *nix
+systems.
+
+You can turn of writing of playerfiles by setting
+`emstar-playerfiles-dir' to nil, but this will disable some features,
+such as best players listing.
