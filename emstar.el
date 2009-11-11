@@ -1,6 +1,6 @@
 ;;; emstar.el --- Emstar Game
 
-;; Copyright (C) 2008 Gwenhael Le Moine
+;; Copyright © 2008, 2009 Gwenhael Le Moine
 
 ;; Author: Gwenhael Le Moine <gwenhael.le.moine@gmail.com>
 ;; Keywords: games
@@ -24,6 +24,8 @@
 
 ;; Play Emstar in emacs.
 ;; Heavily based on emacs-sokoban
+
+;; (require 'emstar)
 
 ;;; Code:
 
