@@ -97,7 +97,7 @@ as saved in the playerfile."
   :group 'emstar
   :type 'character)
 
-(defcustom emstar-stopper-char ?H
+(defcustom emstar-stopper-char ?s
   "*Defines the character used to diplay the stopper."
   :group 'emstar
   :type 'character)
@@ -107,7 +107,7 @@ as saved in the playerfile."
   :group 'emstar
   :type 'character)
 
-(defface emstar-eater-face
+(defface emstar-eater-face ?e
   '((t (:foreground "green"
     :weight  bold)))
   "*Face used display the eater in emstar game."
@@ -168,6 +168,7 @@ as saved in the playerfile."
   "Number of gifts collected.  Buffer-local in emstar-mode.")
 (defvar emstar-total-gifts 0
   "Total number of gifts.  Buffer-local in emstar-mode.")
+
 (defvar emstar-level nil
   "Number of current level.  Buffer-local in emstar games.")
 (defvar emstar-moves nil
