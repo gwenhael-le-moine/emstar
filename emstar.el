@@ -89,27 +89,32 @@ as saved in the playerfile."
   :group 'emstar
   :type 'integer)
 
-(defcustom emstar-eater-char ?@
-  "*Defines the character used to diplay the eater."
-  :group 'emstar
-  :type 'character)
+(defvar emstar-eater-char ?@)
+(defvar emstar-gift-char ?*)
+(defvar emstar-stopper-char ?H)
+(defvar emstar-wall-char ?#)
 
-(defcustom emstar-gift-char ?*
-  "*Defines the character used to diplay the gifts."
-  :group 'emstar
-  :type 'character)
+;; (defcustom emstar-eater-char ?@
+;;   "*Defines the character used to diplay the eater."
+;;   :group 'emstar
+;;   :type 'character)
 
-(defcustom emstar-stopper-char ?s
-  "*Defines the character used to diplay the stopper."
-  :group 'emstar
-  :type 'character)
+;; (defcustom emstar-gift-char ?*
+;;   "*Defines the character used to diplay the gifts."
+;;   :group 'emstar
+;;   :type 'character)
 
-(defcustom emstar-wall-char ?#
-  "*Defines the character used to diplay the walls."
-  :group 'emstar
-  :type 'character)
+;; (defcustom emstar-stopper-char ?H
+;;   "*Defines the character used to diplay the stopper."
+;;   :group 'emstar
+;;   :type 'character)
 
-(defface emstar-eater-face ?e
+;; (defcustom emstar-wall-char ?#
+;;   "*Defines the character used to diplay the walls."
+;;   :group 'emstar
+;;   :type 'character)
+
+(defface emstar-eater-face
   '((t (:foreground "green"
     :weight  bold)))
   "*Face used display the eater in emstar game."
@@ -350,7 +355,7 @@ If requested level doesn't exist, load `emstar-start-level'."
 
 (defun emstar-move-here ()
   "Move player to point.
-Move player char to point, repaint pits and evaluate game status."
+Move player char to point and evaluate game status."
   (interactive)
   (setq emstar-pos (point))
   (emstar-paint (if (equal emstar-selected emstar-eater)
