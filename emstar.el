@@ -1,6 +1,6 @@
 ;;; emstar.el --- Emstar Game
 
-;; Copyright © 2008, 2009 Gwenhael Le Moine
+;; Copyright © Gwenhael Le Moine
 
 ;; Author: Gwenhael Le Moine <gwenhael.le.moine@gmail.com>
 ;; Keywords: games
