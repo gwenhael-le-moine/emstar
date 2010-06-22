@@ -133,7 +133,7 @@ as saved in the playerfile."
   :group 'emstar)
 
 (defface emstar-wall-face
-  '((t (:foreground "blue")))
+  '((t (:foreground "black")))
   "*Face used display walls in emstar game."
   :group 'emstar)
 
