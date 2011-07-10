@@ -83,7 +83,7 @@ as saved in the playerfile."
   :type 'integer)
 
 (defcustom emstar-undo-penalty 3
-  "*Defines the number of moves one undo costs."
+  "*Defines distance penatly for one undo."
   :group 'emstar
   :type 'integer)
 
@@ -170,8 +170,8 @@ as saved in the playerfile."
   "Total number of gifts.  Buffer-local in emstar-mode.")
 (defvar emstar-level nil
   "Number of current level.  Buffer-local in emstar games.")
-(defvar emstar-moves nil
-  "Number of moves made by player.  Buffer-local in emstar-mode.")
+(defvar emstar-distance nil
+  "Distance travelled by player.  Buffer-local in emstar-mode.")
 (defvar emstar-pos nil
   "Current position of player.  Buffer-local in emstar-mode.")
 (defvar emstar-last-pos nil
@@ -211,14 +211,14 @@ Extreme simple, but sufficient for our needs."
     (setq emstar-collected-gifts (1+ emstar-collected-gifts)))
   (setq emstar-collected-gifts (- emstar-total-gifts emstar-collected-gifts )))
 
-(defun emstar-update-score (level moves)
-  "Save number of moves for level to `emstar-player-stats'."
+(defun emstar-update-score (level distance)
+  "Save the distance travelled for level to `emstar-player-stats'."
   (let* ((level-name (concat emstar-levels-basename
                  (number-to-string level)))
      (entry (assoc level-name emstar-player-stats)))
     (if entry
-    (or (< (cdr entry) moves) (setcdr entry moves))
-      (push (cons level-name moves) emstar-player-stats))))
+    (or (< (cdr entry) distance) (setcdr entry distance))
+      (push (cons level-name distance) emstar-player-stats))))
 
 (defun emstar-get-level-best (level &optional list)
   "Get best result for level from `emstar-player-stats'."
@@ -328,11 +328,11 @@ If requested level doesn't exist, load `emstar-start-level'."
 
 (defun emstar-level-finished ()
   (message
-   (format "You finished Level %d in %d moves.  Congratulations!"
+   (format "You finished Level %d in %d meters.  Congratulations!"
            (or (bound-and-true-p emstar-level) 0)
-           emstar-moves))
+           emstar-distance))
   (when (bound-and-true-p emstar-level)
-    (emstar-update-score emstar-level emstar-moves))
+    (emstar-update-score emstar-level emstar-distance))
   (when (emstar-load-next-level)
     (emstar-update-current-level emstar-level)
     (emstar-save-playerfile)))
@@ -355,7 +355,6 @@ Move player char to point, repaint pits and evaluate game status."
       emstar-stopper-char))
   (goto-char emstar-last-pos)
   (emstar-paint 32)
-  (setq emstar-moves (1+ emstar-moves))
   (emstar-update-mode-line))
 
 (defun emstar-move-eater (direction)
@@ -369,7 +368,9 @@ Move player char to point, repaint pits and evaluate game status."
                (progn
                  (setq emstar-collected-gifts (1+ emstar-collected-gifts))
                  (emstar-paint 32)))
-            (= (char-after) 32)))
+		   (setq emstar-distance (1+ emstar-distance))
+		   (= (char-after) 32)))
+  (setq emstar-distance (1- emstar-distance))
   (goto-char emstar-pos)
   (if (or
        (= (char-after) 32)
@@ -385,7 +386,9 @@ Move player char to point, repaint pits and evaluate game status."
            (setq emstar-pos (point))
            (forward-char (car direction))
            (emstar-forward-line (cdr direction))
+		   (setq emstar-distance (1+ emstar-distance))
            (= (char-after) 32)))
+  (setq emstar-distance (1- emstar-distance))
   (goto-char emstar-pos)
   (if (= (char-after) 32)
       (emstar-move-here)))
@@ -451,12 +454,12 @@ Move player char to point, repaint pits and evaluate game status."
   (emstar-find-current-pos))
 
 (defun emstar-update-mode-line ()
-  (setq emstar-game-info (format "Level:%d -- %d/%d -- Moves:%d"
+  (setq emstar-game-info (format "Level: %d -- Gifts collected: %d/%d -- Distance: %d"
                                  (or (bound-and-true-p emstar-level)
                                      0)
                                  emstar-collected-gifts
                                  emstar-total-gifts
-                                 emstar-moves
+                                 emstar-distance
                                  (or emstar-level-best-string ""))))
 
 (defun emstar-undo ()
@@ -464,7 +467,7 @@ Move player char to point, repaint pits and evaluate game status."
   (let ((inhibit-read-only t))
     (undo))
   (emstar-find-current-pos)
-  (setq emstar-moves (+ emstar-moves emstar-undo-penalty))
+  (setq emstar-distance (+ emstar-distance emstar-undo-penalty))
   (emstar-refresh-collected-gifts)
   (emstar-update-mode-line))
 
@@ -483,7 +486,7 @@ Move player char to point, repaint pits and evaluate game status."
   (setq emstar-selected emstar-eater)
   (set-face-inverse-video-p emstar-eater-face t)
   (set-face-inverse-video-p emstar-stopper-face nil)
-  (setq emstar-moves 0)
+  (setq emstar-distance 0)
   (setq emstar-collected-gifts 0)
   (setq emstar-total-gifts 0)
   (setq emstar-level-best-string
@@ -524,7 +527,7 @@ Commands:
   (make-local-variable 'emstar-level)
   (make-local-variable 'emstar-pos)
   (make-local-variable 'emstar-last-pos)
-  (make-local-variable 'emstar-moves)
+  (make-local-variable 'emstar-distance)
   (make-local-variable 'emstar-collected-gifts)
   (make-local-variable 'emstar-total-gifts)
   (make-local-variable 'emstar-game-info)
