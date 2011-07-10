@@ -1,6 +1,6 @@
 ;;; emstar.el --- Emstar Game
 
-;; Copyright (C) 2008 Gwenhael Le Moine
+;; Copyright © Gwenhael Le Moine
 
 ;; Author: Gwenhael Le Moine <gwenhael.le.moine@gmail.com>
 ;; Keywords: games
@@ -24,6 +24,8 @@
 
 ;; Play Emstar in emacs.
 ;; Heavily based on emacs-sokoban
+
+;; (require 'emstar)
 
 ;;; Code:
 
@@ -87,25 +89,30 @@ as saved in the playerfile."
   :group 'emstar
   :type 'integer)
 
-(defcustom emstar-eater-char ?@
-  "*Defines the character used to diplay the eater."
-  :group 'emstar
-  :type 'character)
+(defvar emstar-eater-char ?@)
+(defvar emstar-gift-char ?*)
+(defvar emstar-stopper-char ?H)
+(defvar emstar-wall-char ?#)
 
-(defcustom emstar-gift-char ?*
-  "*Defines the character used to diplay the gifts."
-  :group 'emstar
-  :type 'character)
+;; (defcustom emstar-eater-char ?@
+;;   "*Defines the character used to diplay the eater."
+;;   :group 'emstar
+;;   :type 'character)
 
-(defcustom emstar-stopper-char ?H
-  "*Defines the character used to diplay the stopper."
-  :group 'emstar
-  :type 'character)
+;; (defcustom emstar-gift-char ?*
+;;   "*Defines the character used to diplay the gifts."
+;;   :group 'emstar
+;;   :type 'character)
 
-(defcustom emstar-wall-char ?#
-  "*Defines the character used to diplay the walls."
-  :group 'emstar
-  :type 'character)
+;; (defcustom emstar-stopper-char ?H
+;;   "*Defines the character used to diplay the stopper."
+;;   :group 'emstar
+;;   :type 'character)
+
+;; (defcustom emstar-wall-char ?#
+;;   "*Defines the character used to diplay the walls."
+;;   :group 'emstar
+;;   :type 'character)
 
 (defface emstar-eater-face
   '((t (:foreground "green"
@@ -126,7 +133,7 @@ as saved in the playerfile."
   :group 'emstar)
 
 (defface emstar-wall-face
-  '((t (:foreground "blue")))
+  '((t (:foreground "black")))
   "*Face used display walls in emstar game."
   :group 'emstar)
 
@@ -168,6 +175,7 @@ as saved in the playerfile."
   "Number of gifts collected.  Buffer-local in emstar-mode.")
 (defvar emstar-total-gifts 0
   "Total number of gifts.  Buffer-local in emstar-mode.")
+
 (defvar emstar-level nil
   "Number of current level.  Buffer-local in emstar games.")
 (defvar emstar-distance nil
@@ -347,7 +355,7 @@ If requested level doesn't exist, load `emstar-start-level'."
 
 (defun emstar-move-here ()
   "Move player to point.
-Move player char to point, repaint pits and evaluate game status."
+Move player char to point and evaluate game status."
   (interactive)
   (setq emstar-pos (point))
   (emstar-paint (if (equal emstar-selected emstar-eater)
