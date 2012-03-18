@@ -1,3 +1,5 @@
+As of now emstar is available on Marmalade [http://marmalade-repo.org/] so if you have it set up you can (and should) just run M-x package-install emstar
+
 ======================================================================
          INSTALLATION NOTES FOR EMACS EMSTAR
         2008, Gwenhael Le Moine <gwenhael.le.moine!gmail.com>
