@@ -465,7 +465,7 @@ Move player char to point and evaluate game status."
   (emstar-find-current-pos))
 
 (defun emstar-update-mode-line ()
-  (setq emstar-game-info (format "Level: %d -- Gifts collected: %d/%d -- Distance: %d"
+  (setq emstar-game-info (format "Level: %d -- Gifts collected: %d/%d -- Distance: %d %s"
                                  (or (bound-and-true-p emstar-level)
                                      0)
                                  emstar-collected-gifts
