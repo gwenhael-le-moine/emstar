@@ -1,10 +1,12 @@
 ;;; emstar.el --- Emstar Game
 
+;; Version: 1.1
 ;; Copyright
 ;; © Gwenhael Le Moine
 
 ;; Author: Gwenhael Le Moine <gwenhael.le.moine@gmail.com>
 ;; Keywords: games
+;; URL: https://github.com/cycojesus/emstar
 
 ;; This file is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -68,7 +70,7 @@ players current level.")
 generated from all available playerfiles, if `emstar-playerfiles-dir'
 is none nil.")
 
-(defcustom emstar-levels-dir "/usr/local/share/emstar/emstar-levels"
+(defcustom emstar-levels-dir (concat (file-name-directory load-file-name) "/emstar-levels")
   "*Directory holding the emstar level files"
   :group 'emstar
   :type 'string)
