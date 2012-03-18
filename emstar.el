@@ -1,6 +1,6 @@
 ;;; emstar.el --- Emstar Game
 
-;; Version: 1.1
+;; Version: 1.2
 ;; Copyright
 ;; © Gwenhael Le Moine
 
