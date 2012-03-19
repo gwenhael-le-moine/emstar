@@ -1,6 +1,6 @@
 ;;; emstar.el --- Emstar Game
 
-;; Version: 1.3
+;; Version: 1.4
 ;; Copyright
 ;; © Gwenhael Le Moine
 
@@ -33,9 +33,6 @@
 ;;; Code:
 
 (require 'cl)
-
-(defconst emstar-version "0.1"
-  "Version string for this version of GNU-Emacs Emstar.")
 
 (defconst emstar-left  '(-1 .  0))
 (defconst emstar-right '( 1 .  0))
@@ -545,8 +542,7 @@ Commands:
   (setq major-mode 'emstar-mode)
   (setq mode-name "Emstar")
   (setq header-line-format
-    (list "Emstar v" 'emstar-version
-          " -- " 'emstar-game-info " ~ " 'emstar-selected))
+    (list "Emstar -- " 'emstar-game-info " ~ " 'emstar-selected))
   (emstar-init-level)
   (run-hooks 'emstar-mode-hook))
 
